@@ -22,7 +22,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const ItemPreview = (props) => {
   const item = props.item;
-  
+
   // check if item image was not provided
   if (!item.image) {
     item.image = placeHolderImg;
