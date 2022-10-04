@@ -4,6 +4,9 @@ import agent from "../agent";
 import { connect } from "react-redux";
 import { ITEM_FAVORITED, ITEM_UNFAVORITED } from "../constants/actionTypes";
 
+// define a placeholder for item image
+const placeHolderImg = "placeholder.png";
+
 const mapDispatchToProps = (dispatch) => ({
   favorite: (slug) =>
     dispatch({
@@ -19,6 +22,11 @@ const mapDispatchToProps = (dispatch) => ({
 
 const ItemPreview = (props) => {
   const item = props.item;
+
+  // check if item image was not provided
+  if (!item.image) {
+    item.image = placeHolderImg;
+  }
 
   const handleClick = (ev) => {
     ev.preventDefault();
