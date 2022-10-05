@@ -5,6 +5,7 @@ var Comment = mongoose.model("Comment");
 var User = mongoose.model("User");
 var auth = require("../auth");
 const { sendEvent } = require("../../lib/event");
+const placeHolderImg = "/placeholder.png";
 
 // Preload item objects on routes with ':item'
 router.param("item", function(req, res, next, slug) {
@@ -146,6 +147,10 @@ router.post("/", auth.required, function(req, res, next) {
 
       var item = new Item(req.body.item);
 
+      if (typeof item.image == "undefined") {
+        item.image = placeHolderImg;
+      }
+
       item.seller = user;
 
       return item.save().then(function() {
@@ -184,6 +189,8 @@ router.put("/:item", auth.required, function(req, res, next) {
 
       if (typeof req.body.item.image !== "undefined") {
         req.item.image = req.body.item.image;
+      } else {
+        req.item.image = placeHolderImg;
       }
 
       if (typeof req.body.item.tagList !== "undefined") {
